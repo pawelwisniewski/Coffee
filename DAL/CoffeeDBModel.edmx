@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoffeeDrinkersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CoffeeAdditions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdditionName" Type="varchar" MaxLength="255" />
+          <Property Name="Descr" Type="varchar" MaxLength="255" />
+          <Property Name="Photo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CoffeeDrinkersUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="255" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="CoffeeID" Type="int" />
+        </EntityType>
+        <EntityType Name="Coffees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sugar" Type="int" />
+          <Property Name="CoffeeTypeID" Type="int" />
+          <Property Name="AdditionsID" Type="int" />
+        </EntityType>
+        <EntityType Name="CoffeeTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CoffeeTypeName" Type="varchar" MaxLength="255" />
+          <Property Name="Descr" Type="varchar" MaxLength="255" />
+          <Property Name="Photo" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__CoffeeDri__Coffe__787EE5A0">
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="0..1" />
+          <End Role="CoffeeDrinkersUsers" Type="Self.CoffeeDrinkersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coffees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CoffeeDrinkersUsers">
+              <PropertyRef Name="CoffeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Coffees__Additio__75A278F5">
+          <End Role="CoffeeAdditions" Type="Self.CoffeeAdditions" Multiplicity="0..1" />
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoffeeAdditions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coffees">
+              <PropertyRef Name="AdditionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Coffees__CoffeeT__74AE54BC">
+          <End Role="CoffeeTypes" Type="Self.CoffeeTypes" Multiplicity="0..1" />
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoffeeTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coffees">
+              <PropertyRef Name="CoffeeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeDrinkersModelStoreContainer">
+          <EntitySet Name="CoffeeAdditions" EntityType="Self.CoffeeAdditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CoffeeDrinkersUsers" EntityType="Self.CoffeeDrinkersUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coffees" EntityType="Self.Coffees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CoffeeTypes" EntityType="Self.CoffeeTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CoffeeDri__Coffe__787EE5A0" Association="Self.FK__CoffeeDri__Coffe__787EE5A0">
+            <End Role="Coffees" EntitySet="Coffees" />
+            <End Role="CoffeeDrinkersUsers" EntitySet="CoffeeDrinkersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Coffees__Additio__75A278F5" Association="Self.FK__Coffees__Additio__75A278F5">
+            <End Role="CoffeeAdditions" EntitySet="CoffeeAdditions" />
+            <End Role="Coffees" EntitySet="Coffees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Coffees__CoffeeT__74AE54BC" Association="Self.FK__Coffees__CoffeeT__74AE54BC">
+            <End Role="CoffeeTypes" EntitySet="CoffeeTypes" />
+            <End Role="Coffees" EntitySet="Coffees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoffeeDrinkersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CoffeeAdditions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdditionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Coffees" Relationship="Self.FK__Coffees__Additio__75A278F5" FromRole="CoffeeAdditions" ToRole="Coffees" />
+        </EntityType>
+        <EntityType Name="CoffeeDrinkersUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="CoffeeID" Type="Int32" />
+          <NavigationProperty Name="Coffees" Relationship="Self.FK__CoffeeDri__Coffe__787EE5A0" FromRole="CoffeeDrinkersUsers" ToRole="Coffees" />
+        </EntityType>
+        <EntityType Name="Coffees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sugar" Type="Int32" />
+          <Property Name="CoffeeTypeID" Type="Int32" />
+          <Property Name="AdditionsID" Type="Int32" />
+          <NavigationProperty Name="CoffeeAdditions" Relationship="Self.FK__Coffees__Additio__75A278F5" FromRole="Coffees" ToRole="CoffeeAdditions" />
+          <NavigationProperty Name="CoffeeDrinkersUsers" Relationship="Self.FK__CoffeeDri__Coffe__787EE5A0" FromRole="Coffees" ToRole="CoffeeDrinkersUsers" />
+          <NavigationProperty Name="CoffeeTypes" Relationship="Self.FK__Coffees__CoffeeT__74AE54BC" FromRole="Coffees" ToRole="CoffeeTypes" />
+        </EntityType>
+        <EntityType Name="CoffeeTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CoffeeTypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Coffees" Relationship="Self.FK__Coffees__CoffeeT__74AE54BC" FromRole="CoffeeTypes" ToRole="Coffees" />
+        </EntityType>
+        <Association Name="FK__Coffees__Additio__75A278F5">
+          <End Role="CoffeeAdditions" Type="Self.CoffeeAdditions" Multiplicity="0..1" />
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoffeeAdditions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coffees">
+              <PropertyRef Name="AdditionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CoffeeDri__Coffe__787EE5A0">
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="0..1" />
+          <End Role="CoffeeDrinkersUsers" Type="Self.CoffeeDrinkersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coffees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CoffeeDrinkersUsers">
+              <PropertyRef Name="CoffeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Coffees__CoffeeT__74AE54BC">
+          <End Role="CoffeeTypes" Type="Self.CoffeeTypes" Multiplicity="0..1" />
+          <End Role="Coffees" Type="Self.Coffees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoffeeTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coffees">
+              <PropertyRef Name="CoffeeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeDrinkersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CoffeeAdditions" EntityType="Self.CoffeeAdditions" />
+          <EntitySet Name="CoffeeDrinkersUsers" EntityType="Self.CoffeeDrinkersUsers" />
+          <EntitySet Name="Coffees" EntityType="Self.Coffees" />
+          <EntitySet Name="CoffeeTypes" EntityType="Self.CoffeeTypes" />
+          <AssociationSet Name="FK__Coffees__Additio__75A278F5" Association="Self.FK__Coffees__Additio__75A278F5">
+            <End Role="CoffeeAdditions" EntitySet="CoffeeAdditions" />
+            <End Role="Coffees" EntitySet="Coffees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CoffeeDri__Coffe__787EE5A0" Association="Self.FK__CoffeeDri__Coffe__787EE5A0">
+            <End Role="Coffees" EntitySet="Coffees" />
+            <End Role="CoffeeDrinkersUsers" EntitySet="CoffeeDrinkersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Coffees__CoffeeT__74AE54BC" Association="Self.FK__Coffees__CoffeeT__74AE54BC">
+            <End Role="CoffeeTypes" EntitySet="CoffeeTypes" />
+            <End Role="Coffees" EntitySet="Coffees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoffeeDrinkersModelStoreContainer" CdmEntityContainer="CoffeeDrinkersEntities">
+          <EntitySetMapping Name="CoffeeAdditions">
+            <EntityTypeMapping TypeName="CoffeeDrinkersModel.CoffeeAdditions">
+              <MappingFragment StoreEntitySet="CoffeeAdditions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AdditionName" ColumnName="AdditionName" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoffeeDrinkersUsers">
+            <EntityTypeMapping TypeName="CoffeeDrinkersModel.CoffeeDrinkersUsers">
+              <MappingFragment StoreEntitySet="CoffeeDrinkersUsers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="CoffeeID" ColumnName="CoffeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coffees">
+            <EntityTypeMapping TypeName="CoffeeDrinkersModel.Coffees">
+              <MappingFragment StoreEntitySet="Coffees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sugar" ColumnName="Sugar" />
+                <ScalarProperty Name="CoffeeTypeID" ColumnName="CoffeeTypeID" />
+                <ScalarProperty Name="AdditionsID" ColumnName="AdditionsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoffeeTypes">
+            <EntityTypeMapping TypeName="CoffeeDrinkersModel.CoffeeTypes">
+              <MappingFragment StoreEntitySet="CoffeeTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CoffeeTypeName" ColumnName="CoffeeTypeName" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
